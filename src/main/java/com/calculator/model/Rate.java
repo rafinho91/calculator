@@ -1,5 +1,7 @@
 package com.calculator.model;
 
+import java.math.BigDecimal;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -13,6 +15,6 @@ public class Rate {
 	private String date;
 	
 	@JsonProperty("mid")
-	private Double value;
+	private BigDecimal value;
 
 }
