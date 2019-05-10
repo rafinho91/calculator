@@ -1,18 +1,39 @@
 package com.calculator.service;
 
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+import java.math.BigDecimal;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.calculator.model.CountryType;
 import com.calculator.model.Currency;
 
 @Service
 public class CalculatorService {
 	
-	private RestTemplate restTemplate = new RestTemplate();
+	private int NUMBER_OF_DAYS_IN_MONTH = 22;
+	private CurrencyRepository currencyRepository;
 	
-	public Currency getCurrencyRate(String currency) {
-		return restTemplate.getForObject("http://api.nbp.pl/api/exchangerates/rates/a/" 
-				+ currency.toLowerCase() + "?format=json", Currency.class);
+	@Autowired
+	public CalculatorService(CurrencyRepository currencyRepository) {
+		this.currencyRepository = currencyRepository;
+	}
+	
+	public BigDecimal getSalary(String country, BigDecimal dailyRate) {
+		CountryType countryType;
+		try {
+			countryType = CountryType.valueOf(country.toUpperCase());
+		}
+		catch (Exception e) {
+			countryType = CountryType.PL;
+		}	
+		Currency currency = currencyRepository.getCurrency(countryType.getCurrency());
+		return calculateSalary(countryType, currency.getCurrencyRate(), dailyRate);
 	}
 
+	private BigDecimal calculateSalary(CountryType countryType, BigDecimal currencyRate, BigDecimal dailyRate) {
+		BigDecimal grossSalary = 
+				dailyRate.multiply(BigDecimal.valueOf(NUMBER_OF_DAYS_IN_MONTH)).multiply(currencyRate);
+		return countryType.calculateNetSalary(grossSalary);
+	}
 }
