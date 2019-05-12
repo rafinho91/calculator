@@ -32,8 +32,7 @@ public class CalculatorService {
 	}
 
 	private BigDecimal calculateSalary(CountryType countryType, BigDecimal currencyRate, BigDecimal dailyRate) {
-		BigDecimal grossSalary = 
-				dailyRate.multiply(BigDecimal.valueOf(NUMBER_OF_DAYS_IN_MONTH)).multiply(currencyRate);
-		return countryType.calculateNetSalary(grossSalary);
+		BigDecimal grossSalary = dailyRate.multiply(BigDecimal.valueOf(NUMBER_OF_DAYS_IN_MONTH));
+		return countryType.calculateNetSalary(grossSalary).multiply(currencyRate);
 	}
 }

@@ -1,0 +1,13 @@
+<div class="container">
+  <form [formGroup]="calcForm" (ngSubmit)="getSalary()">
+    <input formControlName="income" name="income" type="number" placeholder="Enter income">
+    <select formControlName="country">
+      <option *ngFor="let c of countries" [value]="c">{{c}}</option>
+    </select>
+    <button type="submit" [disabled]="calcForm.invalid">Calculate</button>
+  </form>
+  <div class="alert alert-danger" *ngIf="calcForm.invalid && calcForm.dirty">
+      Minimum daily income is: 100
+  </div>
+  <h4>Your monthly net salary is: {{salary | currency: 'PLN'}}</h4>
+</div>
