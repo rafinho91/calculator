@@ -12,6 +12,7 @@ import com.calculator.model.Currency;
 public class CalculatorService {
 	
 	private int NUMBER_OF_DAYS_IN_MONTH = 22;
+	
 	private CurrencyRepository currencyRepository;
 	
 	@Autowired
