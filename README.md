@@ -3,6 +3,7 @@ This repository shows an application for calculating monthly salary from entered
 
 ## Technologies
 
+ - Java
  - Spring Framework
  - Angular
  - Maven
@@ -22,10 +23,10 @@ Installing
  - mvn clean install
 
 Running the server
- - mvn spring-boot:run
+ - mvn run
  
  Running the frontent
- - go to the folder frontend : npm start
+ - npm start
 
 ## Data used in project
 Data about current currency rates taken from [http://api.nbp.pl/](http://api.nbp.pl/)
