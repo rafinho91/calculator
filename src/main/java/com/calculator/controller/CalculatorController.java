@@ -1,6 +1,7 @@
 package com.calculator.controller;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,11 @@ public class CalculatorController {
 		getCalculatorResponseEntity(@PathVariable ("country") String country, @RequestParam BigDecimal dailyIncome) {
 		
 		return ResponseEntity.ok(calculatorService.getSalary(country, dailyIncome).toString());
+	}
+	
+	@GetMapping("/currencies")
+	public List<String> getAvailableCurrencies() {
+		return calculatorService.getAvailableCurrencies();
 	}
 	
 	

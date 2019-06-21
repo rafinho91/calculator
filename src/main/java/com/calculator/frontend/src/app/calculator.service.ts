@@ -12,4 +12,8 @@ export class CalculatorService {
   getSalary(country: string, dailyIncome: number): Observable<any> {
     return this.http.get('//localhost:8080/calc/' + country + '?dailyIncome=' + dailyIncome);
   }
+
+  getAvailableCurrencies(): Observable<any> {
+    return this.http.get('//localhost:8080/calc/currencies');
+  }
 }

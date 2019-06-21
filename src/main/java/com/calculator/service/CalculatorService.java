@@ -1,6 +1,8 @@
 package com.calculator.service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,14 @@ public class CalculatorService {
 		}	
 		Currency currency = currencyRepository.getCurrency(countryType.getCurrency());
 		return calculateSalary(countryType, currency.getCurrencyRate(), dailyRate);
+	}
+	
+	public List<String> getAvailableCurrencies() {
+		List<String> listOfCurrencyRateStrings = new ArrayList<>();
+		for (Currency cur : currencyRepository.getAvailableCurrencies()) {
+			listOfCurrencyRateStrings.add(cur.getName() + " : " + cur.getCurrencyRate() + " PLN");
+		}
+		return listOfCurrencyRateStrings;
 	}
 
 	private BigDecimal calculateSalary(CountryType countryType, BigDecimal currencyRate, BigDecimal dailyRate) {

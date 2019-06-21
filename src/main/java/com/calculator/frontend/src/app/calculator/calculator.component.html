@@ -1,13 +1,25 @@
-<div class="container">
-  <form [formGroup]="calcForm" (ngSubmit)="getSalary()">
-    <input formControlName="income" name="income" type="number" placeholder="Enter income">
-    <select formControlName="country">
-      <option *ngFor="let c of countries" [value]="c">{{c}}</option>
-    </select>
-    <button type="submit" [disabled]="calcForm.invalid">Calculate</button>
-  </form>
-  <div class="alert alert-danger" *ngIf="calcForm.invalid && calcForm.dirty">
-      Minimum daily income is: 100
+<div class="row">
+  <div class="col-sm-8">
+    <div>
+      <form [formGroup]="calcForm" (ngSubmit)="getSalary()">
+        <div>
+          <input formControlName="income" name="income" type="number" placeholder="Enter income">
+          <select formControlName="country">
+            <option *ngFor="let c of countries" [value]="c">{{c}}</option>
+          </select>
+          <button type="submit" [disabled]="calcForm.invalid">Calculate</button>
+        </div>
+      </form>
+        <div class="alert alert-danger" *ngIf="calcForm.invalid && calcForm.dirty">
+          Minimum daily income is: 100
+        </div>
+    </div>
+    <h4>Your monthly net salary is: {{salary | currency: 'PLN'}}</h4>
   </div>
-  <h4>Your monthly net salary is: {{salary | currency: 'PLN'}}</h4>
+  <div class="col-sm-4">
+    <h4>Current rates: </h4>
+    <ul class="list-group" *ngFor="let r of currencyRates">
+      <li class="list-group-item">{{r}}</li>
+    </ul>
+  </div>
 </div>
