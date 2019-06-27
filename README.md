@@ -1,12 +1,12 @@
-## **Spring Angular exercise project**
+## **Spring Angular simple project**
 This repository shows an application for calculating monthly salary from entered daily income.
 
 ## Technologies
 
  - Java
+ - Maven
  - Spring Framework
  - Angular
- - Maven
 
 ## Prerequisites
 
@@ -23,7 +23,7 @@ Installing
  - mvn clean install
 
 Running the server
- - mvn run
+ - mvn spring-boot:run
  
  Running the frontent
  - npm start
