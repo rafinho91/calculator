@@ -33,6 +33,6 @@ public class CalculatorServiceTests {
 			.when(mockedRepository.getCurrency("eur"))
 			.thenReturn(Currency.builder().name("euro").code("eur").rates(rates).build());
 		
-		assertThat(calculatorService.getSalary("de", BigDecimal.valueOf(500))).isEqualByComparingTo(BigDecimal.valueOf(34400));
+		assertThat(calculatorService.getSalary("Germany", BigDecimal.valueOf(500))).isEqualByComparingTo(BigDecimal.valueOf(34400));
 	}
 }
