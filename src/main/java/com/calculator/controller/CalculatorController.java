@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.calculator.service.CalculatorService;
+import com.calculator.model.CurrencyDTO;
 
 @RequestMapping("/calc")
 @RestController
@@ -30,7 +31,7 @@ public class CalculatorController {
 	}
 	
 	@GetMapping("/currencies")
-	public List<String> getAvailableCurrencies() {
+	public List<CurrencyDTO> getAvailableCurrencies() {
 		return calculatorService.getAvailableCurrencies();
 	}
 	

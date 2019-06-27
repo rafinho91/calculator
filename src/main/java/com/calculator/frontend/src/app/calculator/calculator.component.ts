@@ -10,12 +10,15 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class CalculatorComponent implements OnInit {
 
   salary: number;
-  countries: string[] = ['uk', 'de', 'pl'];
-  currencyRates: string[];
+  countries: string[] = ['United Kingdom', 'Germany', 'Poland'];
+  currencyRates: [{
+    name: string,
+    rate: number
+  }];
 
   calcForm = this.formBuilder.group({
     income: ['', [Validators.required, Validators.min(100)]],
-    country: ['pl']
+    country: ['Poland']
   });
 
   constructor(private calculatorService: CalculatorService, private formBuilder: FormBuilder) { }

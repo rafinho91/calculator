@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.calculator.model.CountryType;
 import com.calculator.model.Currency;
+import com.calculator.model.CurrencyDTO;
 
 @Service
 public class CalculatorService {
@@ -23,23 +24,17 @@ public class CalculatorService {
 	}
 	
 	public BigDecimal getSalary(String country, BigDecimal dailyRate) {
-		CountryType countryType;
-		try {
-			countryType = CountryType.valueOf(country.toUpperCase());
-		}
-		catch (Exception e) {
-			countryType = CountryType.PL;
-		}	
+		CountryType countryType = CountryType.Of(country);	
 		Currency currency = currencyRepository.getCurrency(countryType.getCurrency());
 		return calculateSalary(countryType, currency.getCurrencyRate(), dailyRate);
 	}
 	
-	public List<String> getAvailableCurrencies() {
-		List<String> listOfCurrencyRateStrings = new ArrayList<>();
+	public List<CurrencyDTO> getAvailableCurrencies() {
+		List<CurrencyDTO> listOfCurrencyRates = new ArrayList<>();
 		for (Currency cur : currencyRepository.getAvailableCurrencies()) {
-			listOfCurrencyRateStrings.add(cur.getName() + " : " + cur.getCurrencyRate() + " PLN");
+			listOfCurrencyRates.add(new CurrencyDTO(cur));
 		}
-		return listOfCurrencyRateStrings;
+		return listOfCurrencyRates;
 	}
 
 	private BigDecimal calculateSalary(CountryType countryType, BigDecimal currencyRate, BigDecimal dailyRate) {

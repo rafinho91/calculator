@@ -1,25 +1,47 @@
-<div class="row">
-  <div class="col-sm-8">
+<div class="container">
+  <div class="row d-flex flex-row-reverse">
     <div>
-      <form [formGroup]="calcForm" (ngSubmit)="getSalary()">
-        <div>
-          <input formControlName="income" name="income" type="number" placeholder="Enter income">
-          <select formControlName="country">
-            <option *ngFor="let c of countries" [value]="c">{{c}}</option>
-          </select>
-          <button type="submit" [disabled]="calcForm.invalid">Calculate</button>
-        </div>
-      </form>
-        <div class="alert alert-danger" *ngIf="calcForm.invalid && calcForm.dirty">
-          Minimum daily income is: 100
-        </div>
+      <table class="table table-bordered">
+         <thead class="thead-dark">
+           <tr>
+             <th colspan="2" class="text-center">NBP current rates: </th>
+           </tr>
+         </thead>
+         <tbody *ngFor="let r of currencyRates">
+           <tr>
+             <td>
+                <strong>{{r.name}}: </strong>
+             </td>
+             <td class="bg-success">
+               <strong>{{r.rate | currency: 'PLN'}}</strong>
+              </td>
+           </tr>
+         </tbody>
+        </table>
     </div>
-    <h4>Your monthly net salary is: {{salary | currency: 'PLN'}}</h4>
   </div>
-  <div class="col-sm-4">
-    <h4>Current rates: </h4>
-    <ul class="list-group" *ngFor="let r of currencyRates">
-      <li class="list-group-item">{{r}}</li>
-    </ul>
+  <div class="row d-flex justify-content-center">
+    <form class="form-inline" [formGroup]="calcForm" (ngSubmit)="getSalary()">
+      <div class="input-group">
+        <input class="form-control" formControlName="income" name="income" type="number"
+          placeholder="Enter income in PLN">
+      </div>
+      <div class="dropdown">
+        <select class="form-control" formControlName="country">
+          <option *ngFor="let c of countries" [value]="c">{{c}}</option>
+        </select>
+      </div>
+      <button class="form-control btn btn-primary" type="submit" [disabled]="calcForm.invalid">Calculate</button>
+    </form>
   </div>
+  <div class="p-1 d-flex justify-content-center">
+    <p class="alert alert-danger" *ngIf="calcForm.invalid && calcForm.dirty">
+      Minimum daily income is: 100
+    </p>
+  </div>
+  <div class="p-3 row d-flex justify-content-center">
+    <h4>Your monthly net salary is: </h4>
+  </div>
+  <h2 class="text-center">{{salary | currency: 'PLN'}}</h2>
+  <h5 *ngIf="salary" class="text-center text-success">Congratulations!</h5>
 </div>
